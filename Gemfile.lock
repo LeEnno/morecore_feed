@@ -1,0 +1,24 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ansi (1.5.0)
+    ast (2.4.0)
+    oga (3.2)
+      ast
+      ruby-ll (~> 2.1)
+    rexml (3.2.4)
+    rss (0.2.9)
+      rexml
+    ruby-ll (2.1.2)
+      ansi
+      ast
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  oga
+  rss
+
+BUNDLED WITH
+   1.17.3
