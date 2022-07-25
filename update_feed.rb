@@ -56,23 +56,20 @@ article_urls.each do |link|
   article_image_url = content.xpath('//meta[@property="og:image"]').first.attr('content').value
   html              = "<img src='#{article_image_url}' />"
 
-  content.xpath('//div[contains(@class, "mc_content-single")]').first.children.each do |child|
+  content.xpath('//div[contains(@class, "morecore-content")]').first.children.each do |child|
     next unless child.is_a?(Oga::XML::Element)
 
     class_attr = child.attr('class')
 
-    if !class_attr.nil?
-      break if class_attr.value == 'swp-content-locator'
-      next if class_attr.value['swp_social_panel']
-    end
+    break if !class_attr.nil? && class_attr.value == 'swp-hidden-panel-wrap'
 
-    child_html = child.to_xml
-
-    if class_attr&.value == 'BorlabsCookie'
-      encoded_html = child.xpath('div/script').first.children.first.to_xml
-      decoded_html = Base64.decode64(encoded_html)
-      child_html   = Oga.parse_html(decoded_html).xpath('//iframe').first.to_xml
-    end
+    child_html = if class_attr&.value == 'BorlabsCookie'
+                   encoded_html = child.xpath('div/script').first.children.first.to_xml
+                   decoded_html = Base64.decode64(encoded_html)
+                   Oga.parse_html(decoded_html).xpath('//iframe').first.to_xml
+                 else
+                   child.to_xml
+                 end
 
     html += child_html
   end
