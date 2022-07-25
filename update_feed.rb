@@ -56,7 +56,10 @@ article_urls.each do |link|
   article_image_url = content.xpath('//meta[@property="og:image"]').first.attr('content').value
   html              = "<img src='#{article_image_url}' />"
 
-  content.xpath('//div[contains(@class, "morecore-content")]').first.children.each do |child|
+  root_node = content.xpath('//div[contains(@class, "morecore-content")]').first ||
+              content.xpath('//div[contains(@class, "mc_content-single")]').first
+
+  root_node.children.each do |child|
     next unless child.is_a?(Oga::XML::Element)
 
     class_attr = child.attr('class')
