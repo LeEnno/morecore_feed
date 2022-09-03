@@ -62,11 +62,11 @@ article_urls.each do |link|
   root_node.children.each do |child|
     next unless child.is_a?(Oga::XML::Element)
 
-    class_attr = child.attr('class')
+    class_val = child.attr('class')&.value || ''
 
-    break if !class_attr.nil? && class_attr.value == 'swp-hidden-panel-wrap'
+    break if class_val == 'swp-hidden-panel-wrap'
 
-    child_html = if class_attr&.value == 'BorlabsCookie'
+    child_html = if class_val.include?('BorlabsCookie')
                    encoded_html = child.xpath('div/script').first.children.first.to_xml
                    decoded_html = Base64.decode64(encoded_html)
                    Oga.parse_html(decoded_html).xpath('//iframe').first.to_xml
