@@ -47,7 +47,7 @@ article_urls.each do |link|
   rss_item.guid.isPermaLink = true
 
   content  = open_and_parse(link)
-  date_str = content.xpath('//meta[@property="article:published_time"]').first.attr('content').value
+  date_str = content.to_xml.scan(/(?<="datePublished":")\d+-\d+-\d+T\d+:\d+:\d+/).first
 
   rss_item.title       = content.xpath('//h1').text.strip
   rss_item.description = content.xpath('//p[@class="single-news_subtitle"]').first.children.first.text.strip

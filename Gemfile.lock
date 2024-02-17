@@ -20,5 +20,8 @@ DEPENDENCIES
   oga
   rss
 
+RUBY VERSION
+   ruby 3.1.4p223
+
 BUNDLED WITH
    1.17.3
