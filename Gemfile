@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
-ruby '3.1.4'
+ruby '4.0.3'
 
 gem 'oga'
